@@ -18,7 +18,7 @@
 #include <string.h>
 
 //renomeie o arquivo do include abaixo para PrimeiroUltimoNomeMATRICULA.h
-#include "PrimeiroUltimoNomeMATRICULA.h"
+#include "JoaoBispo.h"
 
 void testSomar();    //função utilizada para testes
 void testFatorial(); //função utilizada para testes
@@ -34,13 +34,13 @@ int main()
 {
     //testSomar();
     //testFatorial();
-    testQ1();
-    testQ2();
-    testQ3();
-    testQ4();
-    testQ5();
-    testQ6();
-    testQ7();
+    //testQ1();/*feito*/
+    //testQ2();/*feito*/
+    //testQ3();/*feito*/
+    testQ4();/*todo*/
+    //testQ5();/*feito*/
+    //testQ6();/*feito*/
+    //testQ7();/*todo*/
 }
 
 void testSomar()
@@ -147,7 +147,7 @@ void testQ4()
     char strBusca[50];
     int posicoes[30];
     int i;
-    for (i = 0; i < 30; i++)
+    /*for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;
     }
@@ -158,7 +158,7 @@ void testQ4()
     printf("%d\n", posicoes[1] == 8);
     printf("%d\n", posicoes[2] == 34);
     printf("%d\n", posicoes[3] == 37);
-
+*/
     for (i = 0; i < 30; i++)
     {
         posicoes[i] = -1;

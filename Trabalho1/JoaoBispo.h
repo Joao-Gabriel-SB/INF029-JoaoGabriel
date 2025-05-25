@@ -11,10 +11,10 @@
 //  O aluno deve preencher seus dados abaixo, e implementar as questões do trabalho
 
 //  ----- Dados do Aluno -----
-//  Nome:
-//  email:
-//  Matrícula:
-//  Semestre:
+//  Nome: João Gabriel de Santana Bispo
+//  email: joao_gabriel_bispo@hotmail.com
+//  Matrícula:20242160011@ifba.edu.br
+//  Semestre:2025.1
 
 //  Copyright © 2016 Renato Novais. All rights reserved.
 // Última atualização: 07/05/2021
