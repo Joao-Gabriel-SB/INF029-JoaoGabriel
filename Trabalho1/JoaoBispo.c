@@ -381,7 +381,7 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 			qtdOcorrencias++;
 			posicoes[qtd] = inicio-acento;
 			posicoes[qtd+1] = fim-acento;
-			printf("in:%d f:%d\n",posicoes[qtd],posicoes[qtd+1]);
+			//printf("in:%d f:%d\n",posicoes[qtd],posicoes[qtd+1]);
 			qtd+=2;
 		}
 
@@ -478,10 +478,176 @@ int q6(int numerobase, int numerobusca)
     1 se achou 0 se não achou
  */
 
- int q7(char matriz[8][10], char palavra[5])
- {
-     int achou;
-     return achou;
+ int q7(char matriz[8][10], char palavra[6]){
+
+     int achou = 0;
+	 char copia[6];
+	 int i,j;
+		 for(i=0; i<8; i++)
+		 {
+			 for(j=0; j<10; j++)
+			 {
+				 if (matriz[i][j]==palavra[0])
+				 {
+					 int cont = 1;
+
+					 for(int k=j+1;cont<strlen(palavra);k++)
+					 {
+						 if(palavra[cont]==matriz[i][k])
+						 {
+							 cont++;
+						 }
+						 else break;
+					 }
+					 if(cont==strlen(palavra))
+						 achou=1;
+				 }
+			 }
+		 }
+
+		 //printf("%s",palavra);
+			for(i = 4, j = 0; j < strlen(palavra); i--, j++){
+				copia[j] = palavra[i];
+			}
+			copia[j] = '\0';
+			//printf("%s",copia);
+
+			for(i=0; i<8; i++)
+			{
+				for(j=0; j<10; j++)
+				{
+					if (matriz[i][j]==copia[0])
+					{
+						int cont = 1;
+
+						for(int k=j+1;cont<strlen(copia);k++)
+						{
+							if(copia[cont]==matriz[i][k])
+							{
+								cont++;
+							}
+							else break;
+						}
+						if(cont==strlen(copia))
+							achou=1;
+					}
+				}
+			}
+
+			for(i=0; i<8; i++)
+			{
+				for(j=0; j<10; j++)
+				{
+					if (matriz[i][j]==copia[0])
+					{
+						int cont = 1;
+
+						for(int k=i+1;cont<strlen(copia);k++)
+						{
+							if(copia[cont]==matriz[k][j])
+							{
+								cont++;
+							}
+							else break;
+						}
+						if(cont==strlen(copia))
+							achou=1;
+					}
+				}
+			}
+
+
+			for(i=0; i<8; i++)
+			{
+				for(j=0; j<10; j++)
+				{
+					if (matriz[i][j]==palavra[0])
+					{
+						int cont = 1;
+
+						for(int k=j+1, l=i+1;cont<strlen(palavra);k++,l++)
+						{
+							if(palavra[cont]==matriz[l][k])
+							{
+								cont++;
+							}
+							else break;
+						}
+						if(cont==strlen(palavra))
+							achou=1;
+					}
+				}
+			}
+
+			for(i=0; i<8; i++)
+			{
+				for(j=0; j<10; j++)
+				{
+					if (matriz[i][j]==copia[0])
+					{
+						int cont = 1;
+
+						for(int k=j+1, l=i+1;cont<strlen(copia);k++,l++)
+						{
+							if(copia[cont]==matriz[l][k])
+							{
+								cont++;
+							}
+							else break;
+						}
+						if(cont==strlen(copia))
+							achou=1;
+					}
+				}
+			}
+
+
+			for(i=0; i<8; i++)
+			{
+				for(j=0; j<10; j++)
+				{
+					if (matriz[i][j]==palavra[0])
+					{
+						int cont = 1;
+
+						for(int k=j-1, l=i+1;cont<strlen(palavra);k--,l++)
+						{
+							if(palavra[cont]==matriz[l][k])
+							{
+								cont++;
+							}
+							else break;
+						}
+						if(cont==strlen(palavra))
+							achou=1;
+					}
+				}
+			}
+
+			for(i=0; i<8; i++)
+			{
+				for(j=0; j<10; j++)
+				{
+					if (matriz[i][j]==palavra[0])
+					{
+						int cont = 1;
+
+						for(int k=j+1, l=i-1;cont<strlen(palavra);k++,l--)
+						{
+							if(palavra[cont]==matriz[l][k])
+							{
+								cont++;
+							}
+							else break;
+						}
+						if(cont==strlen(palavra))
+							achou=1;
+					}
+				}
+			}
+
+		 return achou;
+
  }
 
 

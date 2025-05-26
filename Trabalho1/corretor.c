@@ -34,13 +34,13 @@ int main()
 {
     //testSomar();
     //testFatorial();
-    //testQ1();/*feito*/
-    //testQ2();/*feito*/
-    //testQ3();/*feito*/
-    testQ4();/*todo*/
-    //testQ5();/*feito*/
-    //testQ6();/*feito*/
-    //testQ7();/*todo*/
+    testQ1();/*feito*/
+    testQ2();/*feito*/
+    testQ3();/*feito*/
+    testQ4();/*feito*/
+    testQ5();/*feito*/
+    testQ6();/*feito*/
+    testQ7();/*feito*/
 }
 
 void testSomar()
@@ -204,10 +204,32 @@ void testQ7()
     };
     char stringBusca [6] = { 'F', 'E', 'H', 'S', 'K'};
     printf("%d\n", q7(matrix, stringBusca) == 1);
+
     strcpy(stringBusca, "KJQRT");
     printf("%d\n", q7(matrix, stringBusca) == 1);
+
     strcpy(stringBusca, "AATOK");
     printf("%d\n", q7(matrix, stringBusca) == 0);
+/*testes personalizados
+    strcpy(stringBusca, "UTKSH");
+    printf("%d\n", q7(matrix, stringBusca) == 1);
+
+    strcpy(stringBusca, "TDUGD");
+    printf("%d\n", q7(matrix, stringBusca) == 1);
+
+    strcpy(stringBusca, "TFWGR");
+    printf("d:%d\n", q7(matrix, stringBusca) == 1);
+
+
+    strcpy(stringBusca, "LGWQH");
+    printf("dE:%d\n", q7(matrix, stringBusca) == 1);
+
+
+    strcpy(stringBusca, "ATNIK");
+    printf("dD:%d\n", q7(matrix, stringBusca) == 1);
+
+fim testes personalizados*/
+
     strcpy(stringBusca, "LTBON");
     printf("%d\n", q7(matrix, stringBusca) == 1);
 
