@@ -4,8 +4,13 @@
 
 #include "EstruturaVetores.h"
 
-int vetorPrincipal[TAM];
+typedef struct{
+	int capacidade;
+	int ocupado;
+	int* inicio;
+}estruturaFixa;
 
+estruturaFixa* vetorPrincipal[TAM];
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
@@ -17,21 +22,40 @@ Rertono (int)
     SEM_ESPACO_DE_MEMORIA - Sem espaço de memória
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
-int criarEstruturaAuxiliar(int posicao, int tamanho)
-{
+int criarEstruturaAuxiliar(int posicao, int tamanho){
 
     int retorno = 0;
-    // a posicao pode já existir estrutura auxiliar
-    retorno = JA_TEM_ESTRUTURA_AUXILIAR;
-    // se posição é um valor válido {entre 1 e 10}
-    retorno = POSICAO_INVALIDA;
-    // o tamanho ser muito grande
-    retorno = SEM_ESPACO_DE_MEMORIA;
-    // o tamanho nao pode ser menor que 1
-    retorno = TAMANHO_INVALIDO;
-    // deu tudo certo, crie
-    retorno = SUCESSO;
 
+	 // se posição é um valor válido {entre 1 e 10}
+	 if( posicao < 1 || posicao > 10 )
+    	retorno = POSICAO_INVALIDA;
+	 
+    // a posicao pode já existir estrutura auxiliar
+	 else if( vetorPrincipal[posicao -1] )
+	 			if( vetorPrincipal[posicao - 1]->inicio )
+    				retorno = JA_TEM_ESTRUTURA_AUXILIAR;
+	
+    // o tamanho ser muito grande
+	 else if( tamanho > 10 )
+    	retorno = SEM_ESPACO_DE_MEMORIA;
+
+    // o tamanho nao pode ser menor que 1
+	 else if( tamanho < 1 )
+    	retorno = TAMANHO_INVALIDO;
+
+    // deu tudo certo, crie
+	 else{
+	 	
+	 	vetorPrincipal[posicao - 1]->inicio = malloc(tamanho * sizeof(int));
+
+		if(!vetorPrincipal[posicao - 1]->inicio)
+			printf("falha ao alocar memória");
+		else {
+			vetorPrincipal[posicao-1]->capacidade = tamanho;
+			retorno = SUCESSO;
+		}
+	 }
+//	 printf("%d: ",retorno);
     return retorno;
 }
 
@@ -50,17 +74,30 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     int existeEstruturaAuxiliar = 0;
     int temEspaco = 0;
     int posicao_invalida = 0;
+	 int index;
+	 if( vetorPrincipal[posicao -1] )
+		 if( vetorPrincipal[posicao - 1]->inicio )
+		 	existeEstruturaAuxiliar = 1;	
+
+	 if( posicao < 1 || posicao > 10 )
+	 	posicao_invalida = 1;
+	 
+	if( vetorPrincipal[posicao - 1] )
+		if( vetorPrincipal[posicao - 1]-> ocupado < vetorPrincipal[posicao - 1]-> capacidade )
+			temEspaco = 1;
 
     if (posicao_invalida)
         retorno = POSICAO_INVALIDA;
-    else
-    {
+    else{
         // testar se existe a estrutura auxiliar
         if (existeEstruturaAuxiliar)
         {
             if (temEspaco)
             {
                 //insere
+					 index = vetorPrincipal[posicao-1]->ocupado;
+					 vetorPrincipal[posicao-1]->inicio[index] = valor;
+					 vetorPrincipal[posicao-1]->ocupado++;
                 retorno = SUCESSO;
             }
             else
@@ -90,8 +127,31 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    int retorno = 0;
+
+	 if( posicao < 1 || posicao > 10 )
+	 		retorno = POSICAO_INVALIDA;
+	
+	 else if( vetorPrincipal[posicao-1] ){
+		
+	 	if( vetorPrincipal[posicao-1]->inicio ){
+	 		if( vetorPrincipal[posicao-1]->ocupado == 0 )
+				retorno = ESTRUTURA_AUXILIAR_VAZIA;
+			else{
+
+				vetorPrincipal[posicao-1]->ocupado--;
+
+				retorno = SUCESSO;		
+			}
+				
+	 	}else{
+			retorno = SEM_ESTRUTURA_AUXILIAR;
+	 	}
+	}
+
+//	printf("%d: ",vetorPrincipal[posicao-1]->ocupado);		
+	return retorno;
+
 }
 
 /*
@@ -101,15 +161,57 @@ ex: suponha os valores [3, 8, 7, 9,  ,  ] onde deve ser excluido o valor 8. A es
 Obs. Esta é uma exclusão lógica
 Rertono (int)
     SUCESSO - excluido com sucesso 'valor' da estrutura na posição 'posicao'
-    ESTRUTURA_AUXILIAR_VAZIA - estrutura vazia
-    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
+    ESTRUTURA_AUXILIAR_VAZIA - estrutura vazia -
+    SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar -
     NUMERO_INEXISTENTE - Número não existe
-    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
+    POSICAO_INVALIDA - Posição inválida para estrutura auxiliar -
 
 */
-int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
-{
-    int retorno = SUCESSO;
+int excluirNumeroEspecificoDeEstrutura(int posicao, int valor){
+
+    int retorno = 0;
+	 int achou = 0; 
+	 int aux;
+
+	 if(posicao < 0 || posicao > 10)
+	 	retorno = POSICAO_INVALIDA;
+
+	 else if( vetorPrincipal[posicao-1] ){
+	 	
+	 	if( vetorPrincipal[posicao-1]->inicio ){
+
+			if( vetorPrincipal[posicao-1]->ocupado == 0 ){
+				retorno = ESTRUTURA_AUXILIAR_VAZIA;
+			}else {
+				for( int i = 0; i < vetorPrincipal[posicao-1]->ocupado; i++ ){
+					if( vetorPrincipal[posicao-1]->inicio[i] == valor ){
+						achou = 1; aux = i; break; 
+					}
+					if(!achou) break;
+				}
+				if(!achou){ retorno = NUMERO_INEXISTENTE;
+				}else{
+					
+					if( aux == vetorPrincipal[posicao-1]->ocupado == 1 ){
+						vetorPrincipal[posicao-1]->ocupado--;
+						retorno = SUCESSO;
+					}else{
+
+						while( vetorPrincipal[posicao-1]->inicio[aux] < vetorPrincipal[posicao-1]->ocupado-1 ){
+
+							vetorPrincipal[posicao-1]->inicio[aux] = vetorPrincipal[posicao-1]->inicio[aux + 1];	
+							aux++;
+						}
+						vetorPrincipal[posicao-1]->inicio[aux] = valor;
+						vetorPrincipal[posicao-1]->ocupado--;
+						retorno = SUCESSO;
+					}	
+				}
+			}
+						
+		}else retorno = SEM_ESTRUTURA_AUXILIAR;
+  	 }
+
     return retorno;
 }
 
@@ -263,8 +365,19 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 */
 
-void inicializar()
-{
+void inicializar(){
+
+	for( int i = 0; i < TAM; i++){
+		vetorPrincipal[i] = (estruturaFixa*) malloc(sizeof(estruturaFixa));
+	
+		if(vetorPrincipal[i]){
+			vetorPrincipal[i]->capacidade = 0;
+			vetorPrincipal[i]->ocupado = 0;
+			vetorPrincipal[i]->inicio = NULL;
+		}else{
+			printf("\tfalhou!\n");
+		}
+	}
 }
 
 /*
